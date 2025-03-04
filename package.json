@@ -2,6 +2,7 @@
   "name": "Personal-Website-React",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://JonathanNoYu.github.io/",
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.25.9",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.26.6",
@@ -36,10 +37,12 @@
     "workbox-background-sync": "^6.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +63,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.27"
+    "@types/jquery": "^3.5.27",
+    "gh-pages": "^6.3.0"
   }
 }
