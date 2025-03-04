@@ -1,5 +1,3 @@
-import project from "./projects.json";
-const projects = {
-    project
-}
+import projects from "./projects.json";
+
 export default projects;
