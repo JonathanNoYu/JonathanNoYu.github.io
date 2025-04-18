@@ -6,48 +6,6 @@
     background-color: #373e69;
 }
 
-.mt-5rem {
-    margin-top: 5rem;
-}
-
-.mb-5rem {
-    margin-bottom: 5rem;
-}
-
-.my-10rem {
-    margin-top: 10rem;
-    margin-bottom: 10rem;
-}
-
-.mt-10rem {
-    margin-top: 10rem;
-}
-
-.mb-10rem {
-    margin-bottom: 10rem;
-}
-
-.mt-15rem {
-    margin-top: 15rem;
-}
-
-.mb-15rem {
-    margin-bottom: 15rem;
-}
-
-.my-20rem {
-    margin-top: 20rem;
-    margin-bottom: 20rem;
-}
-
-.mt-20rem {
-    margin-top: 20rem;
-}
-
-.mb-20rem {
-    margin-bottom: 20rem;
-}
-
 .card {
     border: none !important; 
 }

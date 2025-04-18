@@ -5,7 +5,7 @@ function NavList(links) {
     return (
         <ul className="wd-gen-nav list-group">
             <ListGroup id={`page-nav`}>
-                {links.map((link, index) => (
+                {links.map((link) => (
                     <ListGroup>
                         <HashLink
                             id={`HashLink${link}`}

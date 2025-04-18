@@ -1,6 +1,6 @@
 import NavList from "../NavList";
 import db from "../../Database";
-import cardList from "../../scripts/cardList";
+import { cardList } from "../../scripts/trackCardVisibilityList";
 import { Row } from "react-bootstrap";
 
 function Gallery() {

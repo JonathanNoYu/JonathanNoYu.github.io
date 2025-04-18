@@ -4,17 +4,21 @@ import TrackVisibility from 'react-on-screen';
 import activateElement from "./activateElement";
 import deactivateElement from "./deactivateElement";
 
+function isVisFunc(isVisible, name) {
+    if (isVisible) {
+      activateElement(`HashLink${name}`)
+    } else {
+      deactivateElement(`HashLink${name}`)
+    }
+  } 
+
 function cardList(project) {
     const slideList = JSON.parse(JSON.stringify(project.slides));
     const captionList = JSON.parse(JSON.stringify(project.captions));
     const ComponentToTrack = ({ isVisible }) => {
-        if (isVisible) {
-            activateElement(`HashLink${project.name}`)
-        } else {
-            deactivateElement(`HashLink${project.name}`)
-        }
+        isVisFunc(isVisible, project.name)
         return (
-            <Card key={project._id} className="mb-15rem mt-5rem">
+            <Card key={project.name} className="mb-15rem mt-5rem">
                 <Card.Body className="wd-card text-center h-40">
                     <Carousel>
                         {slideList.map((slide, index) => {
@@ -22,7 +26,7 @@ function cardList(project) {
                                 <img
                                     className="d-block w-100 h-40 mb-5 pb-5"
                                     src={`res/${slide}`}
-                                    alt={`${index} slide img`}
+                                    alt={`This is supposed be number ${index} slide img, something is wrong sorry!`}
                                 />
                                 <Carousel.Caption className="">
                                     <h5>{`${captionList[index]}`}</h5>
@@ -40,4 +44,4 @@ function cardList(project) {
             </TrackVisibility>
         </div>
     );
-} export default cardList
+} export {cardList, isVisFunc}

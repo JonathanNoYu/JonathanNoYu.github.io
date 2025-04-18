@@ -14,8 +14,8 @@ function NavBar() {
                     className={`wd-nav-link px-2 py-0 ${pathname.includes("about") ? "active" : ""}`}>About</Link>
                 <Link to="/blogs"
                     className={`wd-nav-link px-2 py-0 ${pathname.includes("blogs") ? "active" : ""}`}>Blogs</Link> */}
-                {/* <Link to="/gallery"
-                    className={`wd-nav-link px-2 py-0 ${pathname.includes("gallery") ? "active" : ""}`}>Gallery</Link> */}
+                <Link to="/gallery"
+                    className={`wd-nav-link px-2 py-0 ${pathname.includes("gallery") ? "active" : ""}`}>Gallery</Link>
                 <Link to="/contact"
                     className={`wd-nav-link px-2 py-0 ${pathname.includes("contact") ? "active" : ""}`}>Contact</Link>
             </div>
