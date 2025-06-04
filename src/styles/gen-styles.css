@@ -48,6 +48,14 @@ body {
     flex-wrap: wrap;
 }
 
+.wd-bg-gray {
+    background-color: #6d6d6dd7;
+}
+
+.wd-rounded-10 {
+    border-radius: 10px;
+}
+
 ul.wd-gen-nav .list-group-item {
     padding-left: 4px;
     border-top: none;
@@ -91,8 +99,8 @@ ul.wd-gen-nav .wd-active {
 }
 
 .my-10rem {
-    margin-top: 10rem;
-    margin-bottom: 10rem;
+    margin-top: 10rem !important;
+    margin-bottom: 10rem !important;
 }
 
 .mt-10rem {

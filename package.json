@@ -21,6 +21,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-collapse": "^5.1.1",
+    "react-datepicker": "^8.4.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-on-screen": "^2.1.1",
@@ -39,7 +40,7 @@
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build --cname yujonathan.com",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
