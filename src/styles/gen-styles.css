@@ -27,8 +27,9 @@ body {
 }
 
 .mx-pdf {
-    margin-right: 2.5rem !important;
-    margin-left: 2.5rem !important;
+    margin-right: 20rem !important;
+    margin-left: 20rem !important;
+    min-width: 250px;
 }
 /* .wd-dark-filter { 
     filter: grayscale(100%) invert(92%) contrast(83%);
@@ -54,6 +55,15 @@ body {
 
 .wd-rounded-10 {
     border-radius: 10px;
+}
+
+.wd-form-pre-message{
+    box-shadow: 0px 0px 15px 13px  rgba(133, 133, 133, 0.75);
+    -webkit-box-shadow: 0px 0px 15px 13px  rgba(133, 133, 133, 0.75);
+    -moz-box-shadow: 0px 0px 15px 13px  rgba(133, 133, 133, 0.75);
+    border-radius: 4px;
+    background-color: #373e69;
+    padding: 10px;
 }
 
 ul.wd-gen-nav .list-group-item {
