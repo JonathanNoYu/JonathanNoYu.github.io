@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {parseDate} from '@internationalized/date';
 import "../../styles/tasks-styles.css"
-import {Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Label, Popover} from 'react-aria-components';
+import {Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover} from 'react-aria-components';
 import {ChevronDown, ChevronLeft, ChevronRight} from 'lucide-react';
 
 function formatDate(date) {

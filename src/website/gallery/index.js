@@ -1,6 +1,6 @@
 import NavList from "../NavList";
 import db from "../../Database";
-import { cardList } from "../../scripts/trackCardVisibilityList";
+import { CardList } from "../../scripts/trackCardVisibilityList";
 import { Row } from "react-bootstrap";
 
 function Gallery() {
@@ -11,7 +11,7 @@ function Gallery() {
       {NavList(list)}
       <Row className="d-flex justify-content-center p-auto mt-5">
         {projects.map((project, index) =>
-          cardList(project, index)
+          CardList(project, index)
         )}
       </Row>
     </>

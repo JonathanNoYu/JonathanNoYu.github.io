@@ -1,8 +1,11 @@
 import { HashLink } from 'react-router-hash-link';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { useWindowDimensions } from '../scripts/windowFunctions';
 
-function NavList(links) {
-    return (
+function NavList(links, widthMin = 1000) {
+    const { width } = useWindowDimensions();
+    if (width > widthMin) {
+        return (
         <ul className="wd-gen-nav list-group">
             <ListGroup id={`page-nav`}>
                 {links.map((link) => (
@@ -17,6 +20,6 @@ function NavList(links) {
                 ))}
             </ListGroup>
         </ul>
-    );
-
+        );
+    }
 } export default NavList

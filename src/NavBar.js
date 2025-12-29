@@ -1,9 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import "../src/styles/nav-styles.css"
+import { useWindowDimensions } from "./scripts/windowFunctions";
 
 function NavBar() {
     const { pathname } = useLocation();
-    return (
+    const { width } = useWindowDimensions();
+    if (width > 400) {
+        return (
         <nav className="nav nav-wrapper p-4">
             <div className="left-side">
                 <Link to="/home"
@@ -22,6 +25,7 @@ function NavBar() {
                     className={`wd-nav-link px-2 py-0 ${pathname.includes("contact") ? "active" : ""}`}>Contact</Link>
             </div>
         </nav>
-    );
+        );
+    }
 }
 export default NavBar;

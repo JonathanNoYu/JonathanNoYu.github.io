@@ -1,13 +1,16 @@
 /* 
    TODO -- Replace Left Link selector with Bars at the top starting at 1000px
    TODO -- Replace the About Blogs and Contacts in Bars icon at top too starting at 400px.
+
+   GET RID OF SIDE BAR AT 924 width
 */
 
 body {
     overflow-x: hidden;
     background-color: #06063b !important;
     opacity: 0.9;
-    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #06063b 60px ), repeating-linear-gradient( #141cb655, #141cb6 );
+    /* background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #06063b 60px ), repeating-linear-gradient( #141cb655, #141cb6 ); */
+    background-color: linear-gradient(90deg,#161b23,#1c212a,#1c212a,#1c212a,#1c212a);
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
