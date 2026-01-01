@@ -1,15 +1,14 @@
 import { Card, Carousel } from "react-bootstrap";
-import "../styles/card-styles.css"
+import "../styles/card-styles.scss"
 import TrackVisibility from 'react-on-screen';
-import activateElement from "./activateElement";
-import deactivateElement from "./deactivateElement";
-import { useWindowDimensions } from "./windowFunctions";
+import addAttrElement from "./addAttrElement";
+import removeAttrElement from "./removeAttrElement";
 
 function isVisFunc(isVisible, name) {
     if (isVisible) {
-      activateElement(`HashLink${name}`)
+      addAttrElement(`HashLink${name}`, " wd-active text-white")
     } else {
-      deactivateElement(`HashLink${name}`)
+      removeAttrElement(`HashLink${name}`, " wd-active text-white")
     }
   } 
 
@@ -20,12 +19,12 @@ function CardList(project) {
         isVisFunc(isVisible, project.name)
         return (
             <Card key={project.name} className="mb-15rem mt-5rem">
-                <Card.Body className="wd-card text-center h-40">
+                <Card.Body className="wd-card text-center">
                     <Carousel indicators={false}>
                         {slideList.map((slide, index) => {
                             return <Carousel.Item interval={5000} className="">
                                 <img
-                                    className="d-block w-100 h-40 pb-2"
+                                    className="d-block w-100 pb-2"
                                     src={`res/${slide}`}
                                     alt={`Something is wrong sorry!`}
                                 />
@@ -38,7 +37,7 @@ function CardList(project) {
             </Card>);
     }
     return (
-        <div id={project._id} className=" w-75 p-auto h-50">
+        <div id={project._id} className="w-75">
             <TrackVisibility partialVisibility>
                 <ComponentToTrack />
             </TrackVisibility>

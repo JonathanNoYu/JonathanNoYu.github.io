@@ -14,14 +14,13 @@ body {
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-
 }
 
 .home {
     height: 100vh;
 }
 
-.h-40{
+.h-30{
     height: 40%!important;
 }
 
@@ -30,8 +29,8 @@ body {
 }
 
 .mx-pdf {
-    margin-right: 20rem !important;
-    margin-left: 20rem !important;
+    margin-right: 5rem !important;
+    margin-left: 5rem !important;
     min-width: 250px;
 }
 /* .wd-dark-filter { 
@@ -39,7 +38,7 @@ body {
 } */
 
 .wd-nav-padding {
-    padding-top: 4.57rem;
+    padding-top: 4.25rem;
 }
 
 .wd-gen-nav {
@@ -143,4 +142,10 @@ ul.wd-gen-nav .wd-active {
 
 .mb-20rem {
     margin-bottom: 20rem;
+}
+
+.modal {
+background:rgba(73, 73, 73, 0.349);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }

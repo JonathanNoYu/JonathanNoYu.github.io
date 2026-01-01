@@ -2,10 +2,11 @@ import { Row } from "react-bootstrap";
 import NavList from "../NavList";
 import { isVisFunc } from "../../scripts/trackCardVisibilityList";
 import TrackVisibility from "react-on-screen";
-import useWindowDimensions from "../../scripts/windowFunctions";
+import {useWindowDimensions }from "../../scripts/windowFunctions";
 
 function Home() {
   const home_comp_names = ["Intro", "Resume"]
+  const { width } = useWindowDimensions();
   const TrackedIntroComp = ({ isVisible}) => {
     isVisFunc(isVisible, "Intro")
     return(
@@ -24,7 +25,7 @@ function Home() {
   const TrackedResumeComp = ({ isVisible}) => {
     isVisFunc(isVisible, "Resume")
     return (
-      <Row id="Resume" className="d-flex justify-content-center my-5 mx-pdf mb-5">
+      <Row id="Resume" className={`d-flex justify-content-center ${width > 1200 ? "my-5 mx-pdf mb-5" : "" }`}>
         <object key="Resume"
                 className="pdf-height"
                 data="res/full-resume-for-website.pdf" 
@@ -38,12 +39,14 @@ function Home() {
   return (
     <>
       {NavList(home_comp_names)}
-      <TrackVisibility partialVisibility>
-            <TrackedIntroComp />
-      </TrackVisibility>
-      <TrackVisibility partialVisibility>
-           <TrackedResumeComp />
-      </TrackVisibility>
+      <div className="row">
+        <TrackVisibility partialVisibility>
+              <TrackedIntroComp />
+        </TrackVisibility>
+        <TrackVisibility partialVisibility>
+            <TrackedResumeComp />
+        </TrackVisibility>
+      </div>
     </>
   );
 }

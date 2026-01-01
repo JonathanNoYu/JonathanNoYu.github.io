@@ -9,7 +9,7 @@ function NavList(links, widthMin = 1000) {
         <ul className="wd-gen-nav list-group">
             <ListGroup id={`page-nav`}>
                 {links.map((link) => (
-                    <ListGroup>
+                    <ListGroup key={link}>
                         <HashLink
                             id={`HashLink${link}`}
                             to={`#${link}`}

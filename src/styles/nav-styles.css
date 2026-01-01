@@ -2,8 +2,9 @@
     z-index: 999;
     position: fixed;
     width: 100%;
+    max-width: 100% !important;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
     overflow-x: hidden;
     background: radial-gradient(farthest-side ellipse at 1% 0,rgb(81, 81, 122),#17193b);
     /* background-color: rgb(108, 108, 122); */
@@ -52,4 +53,16 @@
 
 .wd-brand:hover {
     color: rgb(0, 0, 0);
+}
+
+.popup-nav {
+    background-color: #727279 !important;
+}
+
+.wd-modal-header {
+    border-bottom: 0px !important;
+    padding-top: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-left: 0 !important;
+    padding-bottom: 0 !important;
 }
