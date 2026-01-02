@@ -3,6 +3,7 @@ import NavList from "../NavList";
 import { isVisFunc } from "../../scripts/trackCardVisibilityList";
 import TrackVisibility from "react-on-screen";
 import {useWindowDimensions }from "../../scripts/windowFunctions";
+import "../../styles/home.scss"
 
 function Home() {
   const home_comp_names = ["Intro", "Resume"]
@@ -10,13 +11,17 @@ function Home() {
   const TrackedIntroComp = ({ isVisible}) => {
     isVisFunc(isVisible, "Intro")
     return(
-      <div id="Intro" className="wd-intro d-flex justify-content-center my-10">
+      <div id="Intro" className="wd-intro d-flex justify-content-center my-10 py-10">
         <div key="Intro">
-          <h1>
-            WIP Intro Check out my gallery instead!!
+          <h1 className="intro-title">
+            Who am I?
           </h1>
-          <p>Hi! I'm Jonathan, a graduate from Northeastern University. 
-            I have a degree in Computer Science and two minors, Music and Business Analytics. I've worked in Java, Javascript, Python, HTML and CSS</p>
+          <p>Hi I'm Jonathan, a graduate from Northeastern University with a computer science degree, business analytics minor and music minor. 
+            I am currently a marketing/fundraising director for my non-profit dragon boat team. 
+            I have a few years of experience in Java, JavaScript/typescript (includes React), python, SQL, HTML and CSS. 
+            I participated in two Hackathons, one internship and a few years being a Teaching Assistant. 
+            I’m a leader in my small community. I taught lion dance choreography at my club, led fellow peers during labs and office hours and coached dragon boats in my community. 
+            I thoroughly enjoy working with software and enjoy the nuance in decisions when creating new applications. I love problem solving and when I play games they use tactics.</p>
         </div>
       </div>
     );
@@ -25,7 +30,7 @@ function Home() {
   const TrackedResumeComp = ({ isVisible}) => {
     isVisFunc(isVisible, "Resume")
     return (
-      <Row id="Resume" className={`d-flex justify-content-center ${width > 1200 ? "my-5 mx-pdf mb-5" : "" }`}>
+      <Row id="Resume" className={`d-flex justify-content-center`}>
         <object key="Resume"
                 className="pdf-height"
                 data="res/full-resume-for-website.pdf" 
@@ -39,14 +44,14 @@ function Home() {
   return (
     <>
       {NavList(home_comp_names)}
-      <div className="row">
+      <Row className={`d-flex justify-content-center p-auto mt-5 gy-5 ${width > 1200 ? "my-5 mx-pdf mb-5" : "" }`}>
         <TrackVisibility partialVisibility>
               <TrackedIntroComp />
         </TrackVisibility>
         <TrackVisibility partialVisibility>
             <TrackedResumeComp />
         </TrackVisibility>
-      </div>
+      </Row>
     </>
   );
 }
