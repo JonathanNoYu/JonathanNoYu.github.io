@@ -33,29 +33,26 @@ function NavBar() {
             <nav className="nav-wrapper p-4">
                 <div className="left-side">
                     <Link to="/home"
-                        className={`wd-brand wd-nav-link px-2 py-0 font-weight-bold ${pathname.includes("home") ? "active" : ""}`}>
-                            JONATHAN YU
-                    </Link>
+                        className={`wd-brand wd-nav-link px-2 py-0 font-weight-bold ${pathname.includes("home") ? "active" : ""}`}>JONATHAN YU</Link>
                 </div>
                 {rightContent}
             </nav>
-            
             <div class="modal fade blur-bg" id="blurNav" data-bs-keyboard="false" tabindex="-1" aria-labelledby="blurNavLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content popup-nav">
-                    <div class="modal-header wd-modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div type="button" className="d-flex flex-column" data-bs-dismiss="modal" aria-label="Close">
-                        <Link to="/home"
-                                className={`wd-nav-link px-5 py-0`}> <h1>Home</h1></Link>
-                        <Link to="/gallery"
-                            className={`wd-nav-link px-5 py-0`}><h1>Gallery</h1></Link>
-                        <Link to="/contact"
-                            className={`wd-nav-link px-5 py-0`}><h1>Contact</h1></Link>
+                <div class="modal-dialog">
+                    <div class="modal-content popup-nav">
+                        <div class="modal-header wd-modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div type="button" className="d-flex flex-column" data-bs-dismiss="modal" aria-label="Close">
+                            <Link to="/home"
+                                    className={`wd-nav-link px-5 py-0`}> <h1>Home</h1></Link>
+                            <Link to="/gallery"
+                                className={`wd-nav-link px-5 py-0`}><h1>Gallery</h1></Link>
+                            <Link to="/contact"
+                                className={`wd-nav-link px-5 py-0`}><h1>Contact</h1></Link>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </>
     )
