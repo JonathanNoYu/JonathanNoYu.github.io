@@ -1,14 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import "../src/styles/nav-styles.css"
 import { useWindowDimensions } from "./scripts/windowFunctions";
-import addAttrElement from "./scripts/addAttrElement";
-import removeAttrElement from "./scripts/removeAttrElement";
+import { MOBILE_WIDTH } from "./constants/constants";
 
 function NavBar() {
     const { pathname } = useLocation();
     const { width } = useWindowDimensions();
     let rightContent;
-    if (width > 600) {
+    if (width > MOBILE_WIDTH) {
         rightContent = <div className="right-side">
                 {/* <Link to="/about"
                     className={`wd-nav-link px-2 py-0 ${pathname.includes("about") ? "active" : ""}`}>About</Link>
@@ -34,7 +33,9 @@ function NavBar() {
             <nav className="nav-wrapper p-4">
                 <div className="left-side">
                     <Link to="/home"
-                        className={`wd-brand wd-nav-link px-2 py-0 font-weight-bold ${pathname.includes("home") ? "active" : ""}`}>JONATHAN YU</Link>
+                        className={`wd-brand wd-nav-link px-2 py-0 font-weight-bold ${pathname.includes("home") ? "active" : ""}`}>
+                            JONATHAN YU
+                    </Link>
                 </div>
                 {rightContent}
             </nav>

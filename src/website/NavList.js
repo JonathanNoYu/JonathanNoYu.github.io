@@ -1,8 +1,9 @@
 import { HashLink } from 'react-router-hash-link';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useWindowDimensions } from '../scripts/windowFunctions';
+import { MIN_NAV_LIST_WIDTH } from '../constants/constants';
 
-function NavList(links, widthMin = 1000) {
+function NavList(links, widthMin = MIN_NAV_LIST_WIDTH) {
     const { width } = useWindowDimensions();
     if (width > widthMin) {
         return (

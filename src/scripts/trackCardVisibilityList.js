@@ -3,6 +3,8 @@ import "../styles/card-styles.scss"
 import TrackVisibility from 'react-on-screen';
 import addAttrElement from "./addAttrElement";
 import removeAttrElement from "./removeAttrElement";
+import { useWindowDimensions } from "./windowFunctions";
+import { MOBILE_WIDTH } from "../constants/constants";
 
 function isVisFunc(isVisible, name) {
     if (isVisible) {
@@ -13,6 +15,7 @@ function isVisFunc(isVisible, name) {
   } 
 
 function CardList(project) {
+    const { width } = useWindowDimensions
     const slideList = JSON.parse(JSON.stringify(project.slides));
     const captionList = JSON.parse(JSON.stringify(project.captions));
     const ComponentToTrack = ({ isVisible }) => {
@@ -37,7 +40,7 @@ function CardList(project) {
             </Card>);
     }
     return (
-        <div id={project._id} className="w-75">
+        <div id={project._id} className={`${width > MOBILE_WIDTH ? "w-75" : ""}`}>
             <TrackVisibility partialVisibility>
                 <ComponentToTrack />
             </TrackVisibility>
