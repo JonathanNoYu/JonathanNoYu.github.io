@@ -4,7 +4,7 @@ import TrackVisibility from 'react-on-screen';
 import addAttrElement from "./addAttrElement";
 import removeAttrElement from "./removeAttrElement";
 import { useWindowDimensions } from "./windowFunctions";
-import { MIN_NAV_LIST_WIDTH, MOBILE_WIDTH } from "../constants/constants";
+import { MIN_NAV_LIST_WIDTH } from "../constants/constants";
 
 function isVisFunc(isVisible, name) {
     if (isVisible) {
@@ -27,7 +27,7 @@ function CardList(project) {
                         {slideList.map((slide, index) => {
                             return <Carousel.Item interval={5000} className="">
                                 <img
-                                    className="d-block w-100 pb-2"
+                                    className="wd-carousel-image d-block pb-2"
                                     src={`res/${slide}`}
                                     alt={`Something is wrong sorry!`}
                                 />
@@ -40,7 +40,7 @@ function CardList(project) {
             </Card>);
     }
     return (
-        <div id={project._id} className={`${width > MOBILE_WIDTH ? "w-75" : ""}`}>
+        <div id={project._id} className={`${width > MIN_NAV_LIST_WIDTH ? "w-85" : "wd-mobile-margins"}`}>
             <TrackVisibility partialVisibility>
                 <ComponentToTrack />
             </TrackVisibility>

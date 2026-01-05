@@ -16,6 +16,10 @@ body {
     background-repeat: no-repeat;
 }
 
+.row {
+    margin-right: 0;
+}
+
 
 .h-30{
     height: 40%!important;
@@ -24,6 +28,17 @@ body {
 /* .wd-dark-filter { 
     filter: grayscale(100%) invert(92%) contrast(83%);
 } */
+
+.mx-nav-list {
+    margin-right: 10rem !important;
+    margin-left: 10rem !important;
+}
+
+.wd-mobile-margins{
+    margin-left: 2vw !important;
+    margin-right: 2vw !important;
+    width: 95% !important;
+}
 
 .wd-nav-padding {
     padding-top: 4.25rem;
@@ -130,4 +145,8 @@ ul.wd-gen-nav .wd-active {
 
 .mb-20rem {
     margin-bottom: 20rem;
+}
+
+.w-85{
+    width: 85% !important;
 }

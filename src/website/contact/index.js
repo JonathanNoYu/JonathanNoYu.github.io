@@ -3,7 +3,7 @@ import { Row } from "react-bootstrap";
 function Contact() {
   return (
     <>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex flex-wrap justify-content-center">
         <h2 className="wd-form-pre-message my-5">Contact me via Google Form!</h2>
       </div>
       <Row className="d-flex justify-content-center p-auto mt-1">

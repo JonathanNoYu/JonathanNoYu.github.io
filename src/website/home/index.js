@@ -4,6 +4,7 @@ import { isVisFunc } from "../../scripts/trackCardVisibilityList";
 import TrackVisibility from "react-on-screen";
 import {useWindowDimensions }from "../../scripts/windowFunctions";
 import "../../styles/home.scss"
+import { MIN_NAV_LIST_WIDTH } from "../../constants/constants";
 
 function Home() {
   const home_comp_names = ["Intro", "Resume"]
@@ -44,14 +45,15 @@ function Home() {
   return (
     <>
       {NavList(home_comp_names)}
-      <Row className={`d-flex justify-content-center p-auto mt-5 gy-5 ${width > 1200 ? "my-5 mx-pdf mb-5" : "" }`}>
+      <div className={`justify-content-center p-auto mt-5 gy-5 
+        ${width > MIN_NAV_LIST_WIDTH ? "my-5 mx-nav-list mb-5" : "wd-mobile-margins" }`}>
         <TrackVisibility partialVisibility>
               <TrackedIntroComp />
         </TrackVisibility>
         <TrackVisibility partialVisibility>
             <TrackedResumeComp />
         </TrackVisibility>
-      </Row>
+      </div>
     </>
   );
 }
