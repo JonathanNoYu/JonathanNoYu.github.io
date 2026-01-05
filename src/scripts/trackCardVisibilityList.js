@@ -27,7 +27,7 @@ function CardList(project) {
                         {slideList.map((slide, index) => {
                             return <Carousel.Item interval={5000} className="">
                                 <img
-                                    className="wd-carousel-image d-block pb-2"
+                                    className="w-100 d-block pb-2"
                                     src={`res/${slide}`}
                                     alt={`Something is wrong sorry!`}
                                 />
@@ -40,7 +40,7 @@ function CardList(project) {
             </Card>);
     }
     return (
-        <div id={project._id} className={`${width > MIN_NAV_LIST_WIDTH ? "w-85" : "wd-mobile-margins"}`}>
+        <div id={project._id} className={`${width > MIN_NAV_LIST_WIDTH ? "w-75" : "wd-mobile-margins"}`}>
             <TrackVisibility partialVisibility>
                 <ComponentToTrack />
             </TrackVisibility>
