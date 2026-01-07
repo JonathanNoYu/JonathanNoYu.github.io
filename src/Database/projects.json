@@ -20,8 +20,8 @@
     { "_id": "SnapMap",
       "name": "SnapMap",
       "slides": ["EBT (SNAP) Map Home.PNG",
-                 "EBT (SNAP) MAP About.PNG",
-                 "EBT (SNAP) MAP Zip.PNG"],
+                 "EBT (SNAP) Map About.PNG",
+                 "EBT (SNAP) Map Zip.PNG"],
       "captions": ["Home Page of Snap Map!",
                  "Talks about our Missions and Goals!",
                  "How it looks searching up a zipcode!"]          
