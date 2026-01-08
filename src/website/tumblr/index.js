@@ -24,7 +24,6 @@ function Tumblr(){
             try {
                 await webScrap(`https://${tumblrUsername}.tumblr.com/`)
                     .then((data) => setPosts(data))
-                    .finally(console.log(posts))
             } catch (error) {
                 console.log(`Error getting https://${tumblrUsername}.tumblr.com/`,error)
             }
@@ -34,7 +33,6 @@ function Tumblr(){
     }, [generate])
 
     const PostComp = () => {
-        console.log(posts)
         if (posts !== undefined) {
             return (<Row>
                 <ListGroup className="col wd-post-titles-authors">
@@ -43,7 +41,26 @@ function Tumblr(){
                         if (newTitle !== undefined && newTitle.length >= MAX_TITLE_LENGTH) {
                             newTitle = newTitle.substring(0, MAX_TITLE_LENGTH) + "..."
                         }
-                        return(<ListGroup.Item className="" id={post["link"]}>Title:{newTitle} Author:{post["author"]}</ListGroup.Item>)
+                        var userAndWordCount = {}
+                        post["users"].map((user, _i) => {
+                                const body = post["bodys"][_i]
+                                var wordCount = body.trim().split(/\s+/).filter(word => word !== "").length
+                                userAndWordCount[user] = userAndWordCount[user] + wordCount | wordCount
+                            })
+                        if (userAndWordCount.length !== 0) {
+                            var wordCountComp = '';
+                            for (const user in userAndWordCount) {
+                                wordCountComp = wordCountComp + "\n" + user + "'s Word count: " + userAndWordCount[user]
+                            }
+                            return(<ListGroup.Item className="" id={post["link"]}>
+                                        <p className="wd-new-line border-bottom border-primary">Title: {newTitle}</p>
+                                        <p className="wd-new-line border-bottom border-primary">{post["date"]}</p>
+                                        <p className="wd-new-line border-bottom border-primary">Author: {post["author"]}</p>
+                                        <p className="wd-new-line">{wordCountComp}</p>
+                                    </ListGroup.Item>) 
+                        } else {
+                            return(<ListGroup.Item className="" id={post["link"]}>Title:{newTitle} Author:{post["author"]}</ListGroup.Item>)
+                        }
                     })}
                 </ListGroup>
                 <Col className="p-0">
