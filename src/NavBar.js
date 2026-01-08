@@ -37,11 +37,11 @@ function NavBar() {
                 </div>
                 {rightContent}
             </nav>
-            <div class="modal fade blur-bg" id="blurNav" data-bs-keyboard="false" tabindex="-1" aria-labelledby="blurNavLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content popup-nav">
-                        <div class="modal-header wd-modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade blur-bg" id="blurNav" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="blurNavLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content popup-nav">
+                        <div className="modal-header wd-modal-header">
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div type="button" className="d-flex flex-column" data-bs-dismiss="modal" aria-label="Close">
                             <Link to="/home"

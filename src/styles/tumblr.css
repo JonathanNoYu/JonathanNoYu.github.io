@@ -1,0 +1,22 @@
+.wd-post-titles-authors{
+    padding-left: 0;
+    padding-right: 1rem;
+    width: 12% !important;
+    max-width: 35%;
+    
+}
+
+.list-group-item{
+    background-color: rgb(180, 204, 240);
+}
+
+.row {
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.h4 {
+    text-shadow: 10px;
+}

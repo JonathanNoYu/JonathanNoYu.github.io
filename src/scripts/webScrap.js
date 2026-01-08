@@ -1,7 +1,7 @@
 async function webScrap(url, ...argsToFind) {
     try {
         const cheerio = require('cheerio');
-        const resp = await fetch('https://stormofembla.tumblr.com/', {
+        const resp = await fetch(url, {
             headers: { 'User-Agent': 
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' },
         });
@@ -11,12 +11,12 @@ async function webScrap(url, ...argsToFind) {
         const dates = []
 
         // Gets the next page
-        const links = $.extract({
-            links: {
-                selector: 'a#next',
-                value: 'href',
-            }
-        })
+        // const links = $.extract({
+        //     links: {
+        //         selector: 'a#next',
+        //         value: 'href',
+        //     }
+        // })
 
         // const tags = $('div#all-posts').find("div.tags");
         const postinfo = $('div#all-posts').find("div.postinfo");
@@ -25,7 +25,7 @@ async function webScrap(url, ...argsToFind) {
         // Getes all the dates for each post
         postinfo.each((_i, el) => {
             const contentOfA = $(el).find("a").first().text()
-            if (contentOfA == "pinned") {
+            if (contentOfA === "pinned") {
                 dates.push($(el).find("a").next().first().text())
             } else {
                 dates.push(contentOfA)
@@ -47,10 +47,12 @@ async function webScrap(url, ...argsToFind) {
                     selector: 'a',
                     value: 'href',
                 }})
+            const title = body.shift()
+            const author = header.shift()
             const postId = $(el).attr()["id"]
-            post.push({id:postId, link:linkToPost["links"], date:dates[_i], title:body.shift(), author:header.shift(), users:header, bodys:body})
+            post.push({id:postId, link:linkToPost["links"], date:dates[_i], title:title, author:author, users:header, bodys:body})
         })
-        console.log(post)
+        return post
   } catch (error) {
     console.error(error);
   }
