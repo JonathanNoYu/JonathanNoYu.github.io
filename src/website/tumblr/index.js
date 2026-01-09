@@ -34,7 +34,7 @@ function Tumblr(){
     }, [generate])
 
     const PostComp = () => {
-        if (posts !== undefined) {
+        if (posts.length > 0) {
             return (<Row>
                 <ListGroup className="col wd-post-titles-authors">
                     {posts.map((post) => {
@@ -45,6 +45,7 @@ function Tumblr(){
                         var userAndWordCount = {}
                         post["users"].map((user, _i) => {
                                 const body = post["bodys"][_i]
+                                // Issue with not getting correct count, line breaks are gone... help
                                 var wordCount = body.trim().split(/\s+/).filter(word => word !== "").length
                                 userAndWordCount[user] = userAndWordCount[user] + wordCount | wordCount
                             })
