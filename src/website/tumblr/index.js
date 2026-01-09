@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Container, Form } from "react-bootstrap";
+import { Col, Row, Container, Form, Button } from "react-bootstrap";
 import NavList from "../NavList";
 import ListGroup from 'react-bootstrap/ListGroup';
 import webScrap from "../../scripts/webScrap";
 import { MAX_TITLE_LENGTH } from "../../constants/constants";
 import "../../styles/tumblr.css"
+import { LoaderPinwheelIcon } from "lucide-react";
 
 function Tumblr(){
     const [tumblrUsername, setTumblrUsername] = useState("");
     const [generate, setGenerate] = useState(false);
     var [posts, setPosts] = useState([]);
-    // const posts = webScrap(`https://stormofembla.tumblr.com/`);
     const handleChange = (e) => {
         setTumblrUsername(e.target.value)
     }
@@ -22,12 +22,13 @@ function Tumblr(){
     useEffect(() => {
         const getData = async () => {
             try {
-                await webScrap(`https://${tumblrUsername}.tumblr.com/`)
-                    .then((data) => setPosts(data))
+                if (tumblrUsername) {
+                    await webScrap(`https://${tumblrUsername}.tumblr.com/`)
+                        .then((data) => setPosts(data))
+                }
             } catch (error) {
                 console.log(`Error getting https://${tumblrUsername}.tumblr.com/`,error)
             }
-            console.log(posts)
         }
         getData()
     }, [generate])
@@ -86,15 +87,16 @@ function Tumblr(){
     return(
         <>
             <Container className="my-5">
+                <Row>
                     <Form.Control
                         placeholder="Tumblr Username"
                         aria-label="Tumblr Username"
                         aria-describedby="Tumblr Username"
-                        className="col-9"
+                        className="col w-25"
                         onChange={handleChange}>
                     </Form.Control>
-                    <Form.Control onClick={handleGetPost}>
-                    </Form.Control>
+                    <Button className="col-4" onClick={handleGetPost}>Search!</Button>
+                </Row>
                 <Row>
                     <PostComp />
                 </Row>
