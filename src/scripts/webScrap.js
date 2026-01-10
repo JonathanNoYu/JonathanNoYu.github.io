@@ -11,6 +11,29 @@ async function getStringHtml(url) {
     }
 }
 
+function processTrumblrPage(html) {
+    const cheerio = require('cheerio');
+    const $ = cheerio.load(html);
+    const dates = []
+    const allPosts = []
+    const fullPost = $('article.FtjPK r0etU'); // 
+    fullPost.each((_i, el) => {
+        const header = $(el).find("span > div.SDhRH > div._7Vla9") // Header
+        const post = $(el).find("span > div.SDhRH > div.u2txn") // all user + post
+        // use text(), supposedly it should get all descendants 
+        // Find all div > div.GzjsW then in each of them get text content... might have to get tags then get text put plz.
+        const tags = $(el).find("div.eA_DC y3qwY > div.qYXF9 > div.hAFp3 > div.mwjNz") // tags
+    })
+    const postsDivs = $('article.FtjPK r0etU').find("span > div.SDhRH > div > div.GzjsW"); 
+    // Article."FtjPK r0etU" > Header.DEkbl, div."eA_DC y3qwY" > {div > ... > span, div}
+    // a aria-label="Permalink" has all links to posts 
+    // Header is author's relation to post, 
+    // span > div has all post content
+    //    span > div.SDhRH > (div.u2txn, ... , div.u2txn) going into each div.u2txn is post/reblog div._7Vla9 inside is user 
+    //    div.u2txn > (div._7Vla9, div > div.GzjsW > (div.k31gt, ..., div.k31gt)) each div.k31gt has all the text in paragraphs, smalls or whatever element.
+    // Article."FtjPK r0etU" > div."eA_DC y3qwY" > div.qYXF9 > div.hAFp3 > div.mwjNz has all the tag #s 
+}
+
 function processSingleBrunoPage(html) {
     const cheerio = require('cheerio');
     const $ = cheerio.load(html);
