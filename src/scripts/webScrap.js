@@ -16,15 +16,31 @@ function processTrumblrPage(html) {
     const $ = cheerio.load(html);
     const dates = []
     const allPosts = []
-    const fullPost = $('article.FtjPK r0etU'); // 
+    const fullPost = $('article.FtjPK'); // article.FtjPK r0etU
     fullPost.each((_i, el) => {
-        const header = $(el).find("span > div.SDhRH > div._7Vla9") // Header
-        const post = $(el).find("span > div.SDhRH > div.u2txn") // all user + post
+        const users = []
+        const postBody = []
+        const post = $(el).find("div.u2txn") // all users + posts
         // use text(), supposedly it should get all descendants 
         // Find all div > div.GzjsW then in each of them get text content... might have to get tags then get text put plz.
-        const tags = $(el).find("div.eA_DC y3qwY > div.qYXF9 > div.hAFp3 > div.mwjNz") // tags
+        
+        // const tags = $(el).find("div.mwjNz") // tags
+        post.each((__i, el) => {
+            const usersInPost = $(el).find("a.BSUG4") // List<cheerio.element>  
+            const posts =  $(el).find("div.GzjsW")    // List<cheerio.element> 
+            const author = usersInPost.first().text() // String Author of the post
+            const titleInfo = []                      // [title, subtitle]
+            posts.first().find("div.k31gt").each((___i, el) => {
+                titleInfo.push($(el).text())          // Gets title then sub-title
+            })
+            usersInPost.next().each((___i, el) => { // username
+                users.push($(el).text())
+            })
+            posts.next().each((___i, el) => { // post content
+                postBody.push($(el).text())
+            })
+        })
     })
-    const postsDivs = $('article.FtjPK r0etU').find("span > div.SDhRH > div > div.GzjsW"); 
     // Article."FtjPK r0etU" > Header.DEkbl, div."eA_DC y3qwY" > {div > ... > span, div}
     // a aria-label="Permalink" has all links to posts 
     // Header is author's relation to post, 
