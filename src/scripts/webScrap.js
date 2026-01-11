@@ -17,30 +17,47 @@ function processTrumblrPage(html) {
     const dates = []
     const allPosts = []
     const fullPost = $('article.FtjPK'); // article.FtjPK r0etU
+    // Check p.F2bKK to check if a post is pinned. If it is ignore it.
+    const pinned = fullPost.find(".F2bKK").length
     fullPost.each((_i, el) => {
-        const users = []
-        const postBody = []
-        const post = $(el).find("div.u2txn") // all users + posts
-        // use text(), supposedly it should get all descendants 
-        // Find all div > div.GzjsW then in each of them get text content... might have to get tags then get text put plz.
-        
-        // const tags = $(el).find("div.mwjNz") // tags
-        post.each((__i, el) => {
-            const usersInPost = $(el).find("a.BSUG4") // List<cheerio.element>  
-            const posts =  $(el).find("div.GzjsW")    // List<cheerio.element> 
-            const author = usersInPost.first().text() // String Author of the post
-            const titleInfo = []                      // [title, subtitle]
-            posts.first().find("div.k31gt").each((___i, el) => {
-                titleInfo.push($(el).text())          // Gets title then sub-title
+        if (_i > pinned) {
+            // u2txn doesn't exists in the html...
+            const post = $(el).find(".Qb2zX") // all users + posts
+            // use text(), supposedly it should get all descendants 
+            // Find all div > div.GzjsW then in each of them get text content... might have to get tags then get text put plz.
+            
+            
+            // const tags = $(el).find("div.mwjNz") // tags
+            post.each((__i, el) => {
+                var author = "";
+                const users = []
+                const postBody = []
+                const usersInPost = $(el).find(".BSUG4") // List<cheerio.element>  
+                const posts =  $(el).find(".GzjsW")    // List<cheerio.element> 
+                const titleInfo = []                      // [title, subtitle]
+                usersInPost.each((___i, userEl) => { // username
+                    const userString = $(userEl).text();
+                    if (___i === 0) { 
+                        author = userString 
+                    } else if (userString !== "") {
+                        users.push(userString)
+                    } 
+                })
+                posts.each((___i, postEl) => { // post content
+                    if (___i === 0) { // includes title and subtitles 
+                        $(postEl).find(".k31gt").each((___i, titleEl) => {
+                            titleInfo.push($(titleEl).text())          // Gets title then sub-title
+                        })
+                    } else {
+                        postBody.push($(postEl).text())
+                    }
+                })
+                if (author === "" && users.length > 0) author = users.shift()
+                allPosts.push({title:titleInfo[0], subtitle: titleInfo[1], author:author, users:users, body:postBody})
             })
-            usersInPost.next().each((___i, el) => { // username
-                users.push($(el).text())
-            })
-            posts.next().each((___i, el) => { // post content
-                postBody.push($(el).text())
-            })
-        })
+        }
     })
+    return allPosts
     // Article."FtjPK r0etU" > Header.DEkbl, div."eA_DC y3qwY" > {div > ... > span, div}
     // a aria-label="Permalink" has all links to posts 
     // Header is author's relation to post, 
