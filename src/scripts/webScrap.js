@@ -1,3 +1,4 @@
+const BASE_URL_TUMBLR = 'https://www.tumblr.com'
 async function getStringHtml(url) {
     try{
         const resp = await fetch(url, {
@@ -23,30 +24,35 @@ function processTrumblrPage(html) {
     const $ = cheerio.load(html);
     const dates = []
     const allPosts = []
-    const fullPost = $('article.FtjPK'); // article.FtjPK r0etU
+    const allPostsOnPage = $('article.FtjPK'); // article.FtjPK r0etU
     // Check p.F2bKK to check if a post is pinned. If it is ignore it.
-    const pinned = fullPost.find(".F2bKK").length
-    fullPost.each((_i, el) => {
+    const pinned = allPostsOnPage.find(".F2bKK").length
+    allPostsOnPage.each((_i, el) => {
         if (_i > pinned) { 
             const post = $(el).find(".Qb2zX") // all users + posts
+            const lastActivityOnPost = $(el).find('.l4Qpd').attr('aria-label') // Usually Reblog
             // const tags = $(el).find("div.mwjNz") // tags
             post.each((__i, el) => {
                 var author = "";
                 const users = []
                 const postBody = []
+                const postDates = []
+                const postLinks = []
+                const dates = $(el).find('.l4Qpd')
                 const usersInPost = $(el).find(".BSUG4")  
-                const posts =  $(el).find(".GzjsW")    
+                const posts = $(el).find(".GzjsW")
+                const links = $(el).find(".gg65T")    
                 const titleInfo = [] // [title, subtitle]
                 usersInPost.each((___i, userEl) => { // username
                     const userString = $(userEl).text();
                     if (___i === 0) { 
                         author = userString 
-                    } else if (userString !== "") {
+                    } else if (userString !== "" && !userString.includes('@')) {
                         users.push(userString)
                     } 
                 })
                 posts.each((___i, postEl) => { // post content
-                    if (___i < 2) { // includes title and subtitles 
+                    if (___i === 0) { // includes title and subtitles 
                         $(postEl).find(".k31gt").each((___i, titleEl) => {
                             titleInfo.push($(titleEl).text())          // Gets title then sub-title
                         })
@@ -54,8 +60,14 @@ function processTrumblrPage(html) {
                         postBody.push($(postEl).text())
                     }
                 })
+                dates.each((___i, datesEl) => { // posted Dates
+                    postDates.push($(datesEl).attr('aria-label'))
+                })
+                links.each((___i, linksEl) => { // links for each post
+                    postLinks.push(BASE_URL_TUMBLR + $(linksEl).attr('href'))
+                })
                 if (author === "" && users.length > 0) author = users.shift()
-                allPosts.push({title:titleInfo[0], subtitle: titleInfo[1], author:author, users:users, body:postBody})
+                allPosts.push({id:postLinks[0].replace(/\D/g, ""), title:titleInfo[0], subtitle: titleInfo[1], author:author, dates:postDates, links:postLinks, users:users, body:postBody})
             })
         }
     })
