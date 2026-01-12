@@ -11,6 +11,13 @@ async function getStringHtml(url) {
     }
 }
 
+// Article."FtjPK r0etU" > Header.DEkbl, div."eA_DC y3qwY" > {div > ... > span, div}
+// a aria-label="Permalink" has all links to posts 
+// Header is author's relation to post, 
+// span > div has all post content
+//    span > div.SDhRH > (div.u2txn, ... , div.u2txn) going into each div.u2txn is post/reblog div._7Vla9 inside is user 
+//    div.u2txn > (div._7Vla9, div > div.GzjsW > (div.k31gt, ..., div.k31gt)) each div.k31gt has all the text in paragraphs, smalls or whatever element.
+// Article."FtjPK r0etU" > div."eA_DC y3qwY" > div.qYXF9 > div.hAFp3 > div.mwjNz has all the tag #s 
 function processTrumblrPage(html) {
     const cheerio = require('cheerio');
     const $ = cheerio.load(html);
@@ -20,21 +27,16 @@ function processTrumblrPage(html) {
     // Check p.F2bKK to check if a post is pinned. If it is ignore it.
     const pinned = fullPost.find(".F2bKK").length
     fullPost.each((_i, el) => {
-        if (_i > pinned) {
-            // u2txn doesn't exists in the html...
+        if (_i > pinned) { 
             const post = $(el).find(".Qb2zX") // all users + posts
-            // use text(), supposedly it should get all descendants 
-            // Find all div > div.GzjsW then in each of them get text content... might have to get tags then get text put plz.
-            
-            
             // const tags = $(el).find("div.mwjNz") // tags
             post.each((__i, el) => {
                 var author = "";
                 const users = []
                 const postBody = []
-                const usersInPost = $(el).find(".BSUG4") // List<cheerio.element>  
-                const posts =  $(el).find(".GzjsW")    // List<cheerio.element> 
-                const titleInfo = []                      // [title, subtitle]
+                const usersInPost = $(el).find(".BSUG4")  
+                const posts =  $(el).find(".GzjsW")    
+                const titleInfo = [] // [title, subtitle]
                 usersInPost.each((___i, userEl) => { // username
                     const userString = $(userEl).text();
                     if (___i === 0) { 
@@ -44,7 +46,7 @@ function processTrumblrPage(html) {
                     } 
                 })
                 posts.each((___i, postEl) => { // post content
-                    if (___i === 0) { // includes title and subtitles 
+                    if (___i < 2) { // includes title and subtitles 
                         $(postEl).find(".k31gt").each((___i, titleEl) => {
                             titleInfo.push($(titleEl).text())          // Gets title then sub-title
                         })
@@ -58,13 +60,6 @@ function processTrumblrPage(html) {
         }
     })
     return allPosts
-    // Article."FtjPK r0etU" > Header.DEkbl, div."eA_DC y3qwY" > {div > ... > span, div}
-    // a aria-label="Permalink" has all links to posts 
-    // Header is author's relation to post, 
-    // span > div has all post content
-    //    span > div.SDhRH > (div.u2txn, ... , div.u2txn) going into each div.u2txn is post/reblog div._7Vla9 inside is user 
-    //    div.u2txn > (div._7Vla9, div > div.GzjsW > (div.k31gt, ..., div.k31gt)) each div.k31gt has all the text in paragraphs, smalls or whatever element.
-    // Article."FtjPK r0etU" > div."eA_DC y3qwY" > div.qYXF9 > div.hAFp3 > div.mwjNz has all the tag #s 
 }
 
 function processSingleBrunoPage(html) {
@@ -144,4 +139,4 @@ async function webScrap(url, ...argsToFind) {
   } catch (error) {
     console.error(error);
   }
-} export default webScrap
+} export default webScrap 
