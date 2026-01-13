@@ -2,8 +2,12 @@ const BASE_URL_TUMBLR = 'https://www.tumblr.com'
 async function getStringHtml(url) {
     try{
         const resp = await fetch(url, {
-                headers: { 'User-Agent': 
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' },
+                method: 'GET',
+                headers: { 
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36',
+                    'Content-Type': 'text/html'
+                 },
+                
             });
         const respHtml = await resp.text()
         return respHtml.toString()
@@ -34,6 +38,7 @@ function processTrumblrPage(html) {
             // const tags = $(el).find("div.mwjNz") // tags
             post.each((__i, el) => {
                 var author = "";
+                var id;
                 const users = []
                 const postBody = []
                 const postDates = []
@@ -67,7 +72,9 @@ function processTrumblrPage(html) {
                     postLinks.push(BASE_URL_TUMBLR + $(linksEl).attr('href'))
                 })
                 if (author === "" && users.length > 0) author = users.shift()
-                allPosts.push({id:postLinks[0].replace(/\D/g, ""), title:titleInfo[0], subtitle: titleInfo[1], author:author, dates:postDates, links:postLinks, users:users, body:postBody})
+                if (postLinks && postLinks.length > 0) id = postLinks[0].replace(/\D/g, "")
+                allPosts.push({id:id, title:titleInfo[0], subtitle: titleInfo[1], author:author, 
+                                dates:postDates, links:postLinks, users:users, body:postBody})
             })
         }
     })
@@ -120,16 +127,41 @@ function processSingleBrunoPage(html) {
         const title = body.shift()
         const author = header.shift()
         const postId = $(el).attr()["id"]
-        allPosts.push({id:postId, link:linkToPost["links"], date:dates[_i], title:title, author:author, users:header, bodys:body})
+        allPosts.push({id:postId, links:linkToPost["links"], dates:dates[_i], title:title, author:author, users:header, bodys:body})
     })
     return [allPosts, links["links"]]
 }
+
+// Works for tumblr page format
+function consolidateOrRemove(arrOfObj) {
+    const resArr = []
+    for (const obj of arrOfObj) {
+        var notInArr = true
+        // Check Array
+        for (const resObj of resArr) {
+            if (resObj["title"] === obj["title"]) {
+                // Check if a duplicate of this is not already in the loop add
+                if(!resObj["dates"].includes(obj["dates"][1])) {
+                    resObj["links"] = [...resObj["links"], ...obj["links"].slice(1)]
+                    resObj["dates"] = [...resObj["dates"], ...obj["dates"].slice(1)]
+                    resObj["body"] = [...resObj["body"], ...obj["body"]]
+                    resObj["users"] = [...resObj["users"], ...obj["users"]]
+                }
+                notInArr = false;
+            }
+        }
+        if (notInArr) {
+            resArr.push(obj)
+        }
+    }
+    return resArr
+}
+
 
 async function webScrap(url, ...argsToFind) {
     try {
         const cheerio = require('cheerio');
         const respHtml = await getStringHtml(url)
-        const $ = cheerio.load(respHtml);
         var posts = []
         const searchTheseUrls = [];
         if (url === 'https://stormofembla.tumblr.com/') {
@@ -146,6 +178,9 @@ async function webScrap(url, ...argsToFind) {
                 }
                 console.log(nextLink)
             }
+        } else {
+            posts = processTrumblrPage(respHtml)
+            posts = consolidateOrRemove(posts)
         }
         return posts
   } catch (error) {
