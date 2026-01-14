@@ -31,7 +31,7 @@ function Tumblr(){
                     //     .then((data) => setPosts(data))
                 }
             } catch (error) {
-                console.log(`Error getting https://${tumblrUsername}.tumblr.com/`,error)
+                console.log(`Error getting https://${tumblrUsername}.tumblr.com/`, error)
             }
         }
         getData()
