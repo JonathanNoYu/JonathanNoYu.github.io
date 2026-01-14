@@ -26,10 +26,10 @@ function Tumblr(){
                 if (tumblrUsername) {
                     console.log("making call")
                     const jsonRes = await fetch(`${API_URL}${tumblrUsername}`)
-                    console.log(jsonRes)
-                    const data = JSON.parse(jsonRes)
+                    console.log(jsonRes.json())
+                    const data = JSON.parse(jsonRes.json())
                     console.log(data)
-                    setPosts(jsonRes)
+                    setPosts(data)
                 }
             } catch (error) {
                 try{
