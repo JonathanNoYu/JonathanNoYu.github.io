@@ -28,9 +28,7 @@ function Tumblr(){
                     const res = await fetch(`${API_URL}${tumblrUsername}`)
                     const json = await res.json()
                     console.log(json)
-                    const data = JSON.parse(json)
-                    console.log(data)
-                    setPosts(data)
+                    setPosts(json)
                 }
             } catch (error) {
                 try{
