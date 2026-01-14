@@ -10,6 +10,5 @@ try {
     console.log(process.env.REACT_APP_API_URL)
 }
 export const API_URL = api_url;
-const ye = 'https://render-backend-kr7j.onrender.com/api/webScrape/tumblr/'
 console.log(process.env.REACT_APP_API_URL)
 console.log(process.env.NODE_ENV)
