@@ -6,6 +6,7 @@ import webScrap from "../../scripts/webScrap";
 import { MAX_TITLE_LENGTH } from "../../constants/constants";
 import "../../styles/tumblr.css"
 import { LoaderPinwheelIcon } from "lucide-react";
+import { API_URL } from "../../constants/constants";
 
 function Tumblr(){
     const [tumblrUsername, setTumblrUsername] = useState("");
@@ -23,8 +24,11 @@ function Tumblr(){
         const getData = async () => {
             try {
                 if (tumblrUsername) {
-                    await webScrap(`https://${tumblrUsername}.tumblr.com/`)
-                        .then((data) => setPosts(data))
+                    const jsonRes = await fetch(`${API_URL}${tumblrUsername}`)
+                    const data = JSON.parse(jsonRes)
+                    setPosts(data)
+                    // await webScrap(`https://${tumblrUsername}.tumblr.com/`)
+                    //     .then((data) => setPosts(data))
                 }
             } catch (error) {
                 console.log(`Error getting https://${tumblrUsername}.tumblr.com/`,error)
