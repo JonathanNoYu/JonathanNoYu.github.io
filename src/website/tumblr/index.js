@@ -24,14 +24,22 @@ function Tumblr(){
         const getData = async () => {
             try {
                 if (tumblrUsername) {
-                    const jsonRes = await fetch(`${API_URL}${tumblrUsername}`)
+                    console.log("making call")
+                    const jsonRes = await fetch(`${process.env.REACT_APP_API_URL}${tumblrUsername}`)
+                    console.log(jsonRes)
                     const data = JSON.parse(jsonRes)
-                    setPosts(data)
-                    // await webScrap(`https://${tumblrUsername}.tumblr.com/`)
-                    //     .then((data) => setPosts(data))
+                    console.log(data)
+                    setPosts(jsonRes)
                 }
             } catch (error) {
-                console.log(`Error getting https://${tumblrUsername}.tumblr.com/`, error)
+                try{
+                    console.log(`Error getting https://www.tumblr.com/${tumblrUsername}`, error)
+                    console.log(`Trying a different website: https://${tumblrUsername}.tumblr.com/`)
+                    await webScrap(`https://${tumblrUsername}.tumblr.com/`)
+                            .then((data) => setPosts(data))
+                } catch (error) {
+                    console.log(`Error getting https://${tumblrUsername}.tumblr.com/`, error)
+                }
             }
         }
         getData()
