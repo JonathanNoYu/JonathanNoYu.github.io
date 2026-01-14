@@ -19,7 +19,6 @@ function Tumblr(){
         setGenerate(!generate)
     }
 
-
     useEffect(() => {
         const getData = async () => {
             try {
@@ -49,7 +48,6 @@ function Tumblr(){
 
     const PostComp = () => {
         if (posts.length > 0) {
-            console.log(posts)
             return (<Row>
                 <ListGroup className="col wd-post-titles-authors">
                     {posts.map((post) => {
