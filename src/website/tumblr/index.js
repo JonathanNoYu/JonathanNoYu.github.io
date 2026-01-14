@@ -67,8 +67,10 @@ function Tumblr(){
                             for (const user in userAndWordCount) {
                                 wordCountComp = wordCountComp + "\n" + user + "'s Word count: " + userAndWordCount[user]
                             }
-                            var date = post["dates"][0]
-                            if (date === "p") date = post["dates"]
+                            var date = ""
+                            if (post["dates"].length !== 0) {
+                                (post["dates"][0].length === 1) ? date = post["dates"] : date = post["dates"][0]
+                            } 
                             return(<ListGroup.Item className="" id={post["id"]}>
                                         <p className="wd-new-line border-bottom border-primary">Title: {newTitle}</p>
                                         <p className="wd-new-line border-bottom border-primary">Subtitle: {post["subtitle"]}</p>
