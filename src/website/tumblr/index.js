@@ -61,7 +61,8 @@ function Tumblr(){
                         post["users"].map((user, _i) => {
                             const body = post["bodys"][_i]
                             // Issue with not getting correct count, line breaks are gone... help
-                            var wordCount = body.trim().split(/\s+/).filter(word => word !== "").length
+                            var wordcount = 0
+                            if (body !== undefined) wordcount = body.trim().split(/\s+/).filter(word => word !== "").length
                             userAndWordCount[user] = userAndWordCount[user] + wordCount | wordCount
                         })
                         if (userAndWordCount.length !== 0) {
