@@ -23,7 +23,7 @@ function Tumblr(){
     useEffect(() => {
         const getData = async () => {
             try {
-                if (tumblrUsername) {
+                if (tumblrUsername && generate) {
                     console.log("making call")
                     const res = await fetch(`${API_URL}${tumblrUsername}`)
                     const json = await res.json()
@@ -42,6 +42,7 @@ function Tumblr(){
             }
         }
         getData()
+        setGenerate(false)
     }, [generate])
 
     const PostComp = () => {
@@ -55,7 +56,8 @@ function Tumblr(){
                         }
                         var userAndWordCount = {}
                         post["users"].map((user, _i) => {
-                            const body = post["bodys"][_i]
+                            var body = ""
+                            if (post["bodys"].length < _i) body = post["bodys"][_i]
                             // Issue with not getting correct count, line breaks are gone... help
                             var wordCount = body.trim().split(/\s+/).filter(word => word !== "").length
                             userAndWordCount[user] = userAndWordCount[user] + wordCount | wordCount
@@ -75,7 +77,7 @@ function Tumblr(){
                                         <p className="wd-new-line">{wordCountComp}</p>
                                     </ListGroup.Item>) 
                         } else {
-                            return(<ListGroup.Item className="" id={post["links"][0]}>Title:{newTitle} Author:{post["author"]}</ListGroup.Item>)
+                            return(<ListGroup.Item className="" id={post["id"]}>Title:{newTitle} Author:{post["author"]}</ListGroup.Item>)
                         }
                     })}
                 </ListGroup>
@@ -86,11 +88,12 @@ function Tumblr(){
                             newTitle = newTitle.substring(0, MAX_TITLE_LENGTH) + "..."
                         }
                         var link = newTitle
-                        if (post["links"]) link = post["links"][__i + 1]
+                        if (post["links"] && post["links"].length <= __i + 1) link = post["links"][__i + 1]
                         return(<>
                             <h4 id={`${link}`} className="text-white">{newTitle}</h4>
                             {post["users"].map((user, _i) => {
-                                const body = post["bodys"][_i]
+                                var body = ""
+                                if (post["bodys"].length < _i) body = post["bodys"][_i]
                                 return(<p className="post-text text-white">{user}: {body}</p>)
                             })}
                             </>
