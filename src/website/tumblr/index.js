@@ -24,11 +24,14 @@ function Tumblr(){
         const getData = async () => {
             try {
                 if (tumblrUsername && generate) {
+                    setGenerate(false)
                     console.log("making call")
                     const res = await fetch(`${API_URL}${tumblrUsername}`)
                     const json = await res.json()
                     console.log(json)
                     setPosts(json)
+                } else {
+                    console.log("Waiting on another API call first >.<")
                 }
             } catch (error) {
                 try{
@@ -42,11 +45,11 @@ function Tumblr(){
             }
         }
         getData()
-        setGenerate(false)
     }, [generate])
 
     const PostComp = () => {
         if (posts.length > 0) {
+            console.log(posts)
             return (<Row>
                 <ListGroup className="col wd-post-titles-authors">
                     {posts.map((post) => {
@@ -56,8 +59,7 @@ function Tumblr(){
                         }
                         var userAndWordCount = {}
                         post["users"].map((user, _i) => {
-                            var body = ""
-                            if (post["bodys"].length < _i) body = post["bodys"][_i]
+                            const body = post["bodys"][_i]
                             // Issue with not getting correct count, line breaks are gone... help
                             var wordCount = body.trim().split(/\s+/).filter(word => word !== "").length
                             userAndWordCount[user] = userAndWordCount[user] + wordCount | wordCount
@@ -94,8 +96,7 @@ function Tumblr(){
                         return(<>
                             <h4 id={`${link}`} className="text-white">{newTitle}</h4>
                             {post["users"].map((user, _i) => {
-                                var body = ""
-                                if (post["bodys"].length < _i) body = post["bodys"][_i]
+                                const body = post["bodys"][_i]
                                 return(<p className="post-text text-white">{user}: {body}</p>)
                             })}
                             </>
