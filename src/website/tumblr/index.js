@@ -25,7 +25,7 @@ function Tumblr(){
             try {
                 if (tumblrUsername) {
                     console.log("making call")
-                    const jsonRes = await fetch(`${process.env.REACT_APP_API_URL}${tumblrUsername}`)
+                    const jsonRes = await fetch(`${API_URL}${tumblrUsername}`)
                     console.log(jsonRes)
                     const data = JSON.parse(jsonRes)
                     console.log(data)
