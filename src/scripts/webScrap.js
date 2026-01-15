@@ -159,31 +159,27 @@ function consolidateOrRemove(arrOfObj) {
 
 
 async function webScrap(url, ...argsToFind) {
-    try {
-        const cheerio = require('cheerio');
-        const respHtml = await getStringHtml(url)
-        var posts = []
-        const searchTheseUrls = [];
-        if (url === 'https://stormofembla.tumblr.com/') {
-            const [pageInfo, nextLink] = processSingleBrunoPage(respHtml)
-            posts = [...posts, ...pageInfo]
+    const cheerio = require('cheerio');
+    const respHtml = await getStringHtml(url)
+    var posts = []
+    const searchTheseUrls = [];
+    if (url === 'https://stormofembla.tumblr.com/') {
+        const [pageInfo, nextLink] = processSingleBrunoPage(respHtml)
+        posts = [...posts, ...pageInfo]
 
-            searchTheseUrls.push(url + nextLink)
-            while(searchTheseUrls.length !== 0) {
-                const nxetPageHtml = await getStringHtml(searchTheseUrls.shift())
-                const [pageInfo, nextLink] = processSingleBrunoPage(nxetPageHtml)
-                posts = [...posts, ...pageInfo]
-                if (nextLink && nextLink !== "") {
-                    searchTheseUrls.push(url + nextLink)
-                }
-                console.log(nextLink)
+        searchTheseUrls.push(url + nextLink)
+        while(searchTheseUrls.length !== 0) {
+            const nxetPageHtml = await getStringHtml(searchTheseUrls.shift())
+            const [pageInfo, nextLink] = processSingleBrunoPage(nxetPageHtml)
+            posts = [...posts, ...pageInfo]
+            if (nextLink && nextLink !== "") {
+                searchTheseUrls.push(url + nextLink)
             }
-        } else {
-            posts = processTrumblrPage(respHtml)
-            posts = consolidateOrRemove(posts)
+            console.log(nextLink)
         }
-        return posts
-  } catch (error) {
-    console.error(error);
-  }
+    } else {
+        posts = processTrumblrPage(respHtml)
+        posts = consolidateOrRemove(posts)
+    }
+    return posts
 } export default webScrap 

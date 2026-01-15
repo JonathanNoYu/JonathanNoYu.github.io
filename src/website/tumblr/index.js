@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Container, Form, Button } from "react-bootstrap";
+import { Col, Row, Container, Form, Button, ToastContainer } from "react-bootstrap";
 import NavList from "../NavList";
 import ListGroup from 'react-bootstrap/ListGroup';
 import webScrap from "../../scripts/webScrap";
@@ -7,63 +7,74 @@ import { MAX_TITLE_LENGTH } from "../../constants/constants";
 import "../../styles/tumblr.css"
 import { LoaderPinwheelIcon } from "lucide-react";
 import { API_URL } from "../../constants/constants";
-import multiSnackBar from "../../scripts/multiSnackBar";
-import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
-
-
 import { error } from "jquery";
+import { useDispatch, useSelector } from "react-redux";
+import MultiToast from "../../scripts/notifications";
+import { addNotif, setOpen } from "../../Store/notifSlice.js";
 
 function Tumblr(){
+    const dispatch = useDispatch()
     const [tumblrUsername, setTumblrUsername] = useState("");
     const [generate, setGenerate] = useState(false);
-    const [snackBarOpen, setSnackBarOpen] = useState(false)
-    const [snackBarTexts, setSnackBarTexts] = useState([])
+    const [apiCall, setApiCall] = useState(false);
     var [posts, setPosts] = useState([]);
     const handleChange = (e) => {
         setTumblrUsername(e.target.value)
     }
     const handleGetPost = () => {
         setGenerate(!generate)
+        setPosts = []
     }
 
-    const handleCloseSnackBar = (e, reason) => {
-        if (reason === 'clickaway') return
-        setSnackBarOpen(false);
-        setSnackBarTexts(snackBarTexts.slice(1))
-    };
+    const callRender = async () => {
+        if (tumblrUsername && !apiCall) {
+            setGenerate(false)
+            setApiCall(true)
+            dispatch(setOpen())
+            dispatch(addNotif(`Webscraping! It may take a few minute :)`))
+            const res = await fetch(`${API_URL}${tumblrUsername}`)
+            if (res.status === 200) {
+                const json = await res.json()
+                setPosts(json)
+            } else {
+                throw Error(res)
+            }
+        } else {
+            if (apiCall) {
+                dispatch(setOpen())
+                dispatch(addNotif("Waiting on another API call first >.<"))
+            }
+        }
+    }
 
     useEffect(() => {
         const getData = async () => {
+            if (!generate) return; 
             try {
-                if (tumblrUsername && generate) {
-                    setGenerate(false)
-                    setSnackBarOpen(true)
-                    console.log("making call")
-                    const res = await fetch(`${API_URL}${tumblrUsername}`)
-                    const json = await res.json()
-                    console.log(generate)
-                    console.log(json)
-                    setPosts(json)
-                } else {
-                    if (tumblrUsername !== "") console.log("Waiting on another API call first >.<")
-                }
-                throw error
+                await callRender()
             } catch (error) {
+                if (error.status >= 500) {
+                    console.log("timinig out for a minute to see if backend works!")
+                    setTimeout(60000)
+                    callRender()
+                }
+                if (posts.length > 0) return;
                 try{
-                    setSnackBarOpen(true)
-                    console.log(`Error getting https://www.tumblr.com/${tumblrUsername}`, error)
-                    console.log(`Trying a different website: https://${tumblrUsername}.tumblr.com/`)
-                    setSnackBarTexts([...snackBarTexts, `Error getting https://www.tumblr.com/${tumblrUsername}`])
-                    setSnackBarTexts([...snackBarTexts, `Trying a different website: https://${tumblrUsername}.tumblr.com/`])
-                    //await webScrap(`https://${tumblrUsername}.tumblr.com/`)
-                    //        .then((data) => setPosts(data))
+                    dispatch(setOpen())
+                    dispatch(addNotif(`Error getting https://www.tumblr.com/${tumblrUsername}`))
+                    dispatch(addNotif(`Trying a different website: https://${tumblrUsername}.tumblr.com/`))
+                    const data = await webScrap(`https://${tumblrUsername}.tumblr.com/`)
+                    if (data.length > 0) {
+                        setPosts(data)
+                    } else {
+                        throw Error(`Can't load https://${tumblrUsername}.tumblr.com/`)
+                    }
                 } catch (error) {
-                    console.log(`Error getting https://${tumblrUsername}.tumblr.com/`, error)
-                    setSnackBarTexts([...snackBarTexts, `Error getting https://${tumblrUsername}.tumblr.com/`])
+                    dispatch(addNotif(`Couldn't get https://${tumblrUsername}.tumblr.com/ \n Not able to load :((((`))
                 }
             }
         }
+        setApiCall(false)
         getData()
     }, [generate])
 
@@ -119,8 +130,7 @@ function Tumblr(){
                                 const body = post["bodys"][_i]
                                 return(<p className="post-text text-white">{user}: {body}</p>)
                             })}
-                            </>
-                        )
+                        </>)
                     })}
                 </Col>
             </Row>)
@@ -144,7 +154,7 @@ function Tumblr(){
                     <PostComp />
                 </Row>
             </Container>
-            {multiSnackBar(snackBarTexts, snackBarOpen, handleCloseSnackBar)}
+            <MultiToast />
         </>
     );
 } export default Tumblr

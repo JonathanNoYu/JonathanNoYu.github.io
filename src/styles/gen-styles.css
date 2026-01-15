@@ -16,8 +16,11 @@ body {
     background-repeat: no-repeat;
 }
 
-.row {
-    margin-right: 0;
+.row{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 
@@ -35,8 +38,8 @@ body {
 }
 
 .wd-mobile-margins{
-    margin-left: 2vw !important;
-    margin-right: 2vw !important;
+    padding-left: 2vw !important;
+    padding-right: 2vw !important;
     width: 95% !important;
 }
 
