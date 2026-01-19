@@ -26,7 +26,6 @@ async function getStringHtml(url) {
 function processTrumblrPage(html) {
     const cheerio = require('cheerio');
     const $ = cheerio.load(html);
-    const dates = []
     const allPosts = []
     const allPostsOnPage = $('article.FtjPK'); // article.FtjPK r0etU
     // Check p.F2bKK to check if a post is pinned. If it is ignore it.
@@ -34,7 +33,6 @@ function processTrumblrPage(html) {
     allPostsOnPage.each((_i, el) => {
         if (_i > pinned) { 
             const post = $(el).find(".Qb2zX") // all users + posts
-            const lastActivityOnPost = $(el).find('.l4Qpd').attr('aria-label') // Usually Reblog
             // const tags = $(el).find("div.mwjNz") // tags
             post.each((__i, el) => {
                 var author = "";
@@ -159,7 +157,6 @@ function consolidateOrRemove(arrOfObj) {
 
 
 async function webScrap(url, ...argsToFind) {
-    const cheerio = require('cheerio');
     const respHtml = await getStringHtml(url)
     var posts = []
     const searchTheseUrls = [];
@@ -179,7 +176,7 @@ async function webScrap(url, ...argsToFind) {
         }
     } else {
         posts = processTrumblrPage(respHtml)
-        posts = consolidateOrRemove(posts)
     }
+    posts = consolidateOrRemove(posts)
     return posts
 } export default webScrap 
