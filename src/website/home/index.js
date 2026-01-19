@@ -5,10 +5,17 @@ import TrackVisibility from "react-on-screen";
 import {useWindowDimensions }from "../../scripts/windowFunctions";
 import "../../styles/home.scss"
 import { MIN_NAV_LIST_WIDTH } from "../../constants/constants";
+import useAnimatedText from "../../scripts/animatedText";
 
 function Home() {
   const home_comp_names = ["Intro", "Resume"]
   const { width } = useWindowDimensions();
+  const introString = `Hi I'm Jonathan, a graduate from Northeastern University with a computer science degree, business analytics minor and music minor. 
+            I am currently a marketing/fundraising director for my non-profit dragon boat team. 
+            I have a few years of experience in Java, JavaScript/typescript (includes React), python, SQL, HTML and CSS. 
+            I participated in two Hackathons, one internship and a few years being a Teaching Assistant. 
+            I’m a leader in my small community. I taught lion dance choreography at my club, led fellow peers during labs and office hours and coached dragon boats in my community. 
+            I thoroughly enjoy working with software and enjoy the nuance in decisions when creating new applications. I love problem solving and when I play games they use tactics.`;
   const TrackedIntroComp = ({ isVisible}) => {
     isVisFunc(isVisible, "Intro")
     return(
@@ -17,12 +24,9 @@ function Home() {
           <h1 className="intro-title">
             Who am I?
           </h1>
-          <p>Hi I'm Jonathan, a graduate from Northeastern University with a computer science degree, business analytics minor and music minor. 
-            I am currently a marketing/fundraising director for my non-profit dragon boat team. 
-            I have a few years of experience in Java, JavaScript/typescript (includes React), python, SQL, HTML and CSS. 
-            I participated in two Hackathons, one internship and a few years being a Teaching Assistant. 
-            I’m a leader in my small community. I taught lion dance choreography at my club, led fellow peers during labs and office hours and coached dragon boats in my community. 
-            I thoroughly enjoy working with software and enjoy the nuance in decisions when creating new applications. I love problem solving and when I play games they use tactics.</p>
+          <div className="editor d-inline-block">
+            <span className="d-inline-block intro-paragraph">{useAnimatedText(introString, 8)}</span>
+          </div>
         </div>
       </div>
     );

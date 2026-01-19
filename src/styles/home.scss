@@ -12,4 +12,16 @@
 
 .wd-intro{
     color: rgb(182, 182, 182);
+    text-align: left;
+}
+
+.intro-title {
+    text-align: center;
+}
+
+.editor {
+    display: inline-block;
+    min-width: 80vw;
+    min-height: 15vw;
+    background-color: black;
 }
