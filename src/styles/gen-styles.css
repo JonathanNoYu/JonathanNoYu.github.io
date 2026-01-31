@@ -129,6 +129,10 @@ ul.wd-gen-nav .wd-active {
     margin-top: 10rem;
 }
 
+.mb-2rem {
+    margin-bottom: 2rem;
+}
+
 .mb-10rem {
     margin-bottom: 10rem;
 }
@@ -154,6 +158,23 @@ ul.wd-gen-nav .wd-active {
     margin-bottom: 20rem;
 }
 
+.w-75 {
+    min-width: 75vw;
+    max-width: 75vw;
+}
+
+.w-80 {
+    min-width: 80vw;
+    max-width: 80vw;
+}
+
 .w-85{
-    width: 85% !important;
+    min-width: 85vw;
+    max-width: 85vw;
+    width: 85vw !important;
+}
+
+.w-90 {
+    min-width: 90vw;
+    max-width: 90vw;
 }

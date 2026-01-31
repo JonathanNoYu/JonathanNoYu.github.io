@@ -11,7 +11,7 @@ function useAnimatedText(text, dur = 5) {
             duration: dur,
             ease: "linear",
             onUpdate(latest) {
-                setCurrChar(Math.floor(latest))
+                setCurrChar(Math.ceil(latest))
             },
         })
         
