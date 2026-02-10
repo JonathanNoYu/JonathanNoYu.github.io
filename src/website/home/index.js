@@ -22,7 +22,7 @@ function Home() {
           <h1 className="intro-title mb-2rem">
             Who am I?
           </h1>
-          <div className={`editor d-inline-block ${width > MIN_NAV_LIST_WIDTH ? "w-80 h-5" : "w-90 h-15" }`}>
+          <div className={`editor d-inline-block ${width > MIN_NAV_LIST_WIDTH ? "w-80 h-5" : "w-90 h-25" }`}>
             <span className={`d-inline-block intro-paragraph`}>
               {useAnimatedText(introString, 8)}
             </span>

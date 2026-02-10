@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Container, Form, Button, ToastContainer } from "react-bootstrap";
-import NavList from "../NavList";
+import { Col, Row, Container, Form, Button } from "react-bootstrap";
 import ListGroup from 'react-bootstrap/ListGroup';
 import webScrap from "../../scripts/webScrap";
 import { MAX_TITLE_LENGTH } from "../../constants/constants";
 import "../../styles/tumblr.css"
-import { LoaderPinwheelIcon } from "lucide-react";
 import { API_URL } from "../../constants/constants";
-import { error } from "jquery";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import MultiToast from "../../scripts/notifications";
 import { addNotif, setOpen } from "../../Store/notifSlice.js";
 

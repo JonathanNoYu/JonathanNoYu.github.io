@@ -15,7 +15,10 @@ function useAnimatedText(text, dur = 5) {
             },
         })
         
-        return () => animation.stop()   
+        return () => {
+            animation.stop()
+            animatedCursor.stop()
+        }
     }, [animatedCursor, text.length])
     return text.slice(0, currChar)
 } export default useAnimatedText
